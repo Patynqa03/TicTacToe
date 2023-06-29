@@ -25,7 +25,7 @@ public class BoardMechanics {
     public String[][] xMove(int move) {
 
 
-        System.out.println("Ruch O");
+
 
 
             if (move == 7 && !board[0][0].equals("X") && !board[0][0].equals("O")) {
@@ -215,27 +215,44 @@ public class BoardMechanics {
 
         int move = random.nextInt(9)+1;
 
-        if(move == 7){
+
+
+        if (move == 7 && !board[0][0].equals("X") && !board[0][0].equals("O")) {
             board[0][0] = "O";
-        } else if(move == 8) {
+
+        } else if (move == 8 && !board[0][2].equals("X") && !board[0][2].equals("O")) {
             board[0][2] = "O";
-        } else if (move == 9) {
+
+        } else if (move == 9 && !board[0][4].equals("X") && !board[0][4].equals("O")) {
             board[0][4] = "O";
-        } else if (move == 4) {//
+
+        } else if (move == 4 && !board[2][0].equals("X") && !board[2][0].equals("O")) {
             board[2][0] = "O";
-        } else if (move == 5) {
+
+        } else if (move == 5 && !board[2][2].equals("X") && !board[2][2].equals("O")) {
             board[2][2] = "O";
-        } else if (move == 6) {
+
+        } else if (move == 6 && !board[2][4].equals("X") && !board[2][4].equals("O")) {
             board[2][4] = "O";
-        } else if (move == 1) {
+
+        } else if (move == 1 && !board[4][0].equals("X") && !board[4][0].equals("O")) {
             board[4][0] = "O";
-        } else if (move == 2) {
+
+        } else if (move == 2 && !board[4][2].equals("X") && !board[4][2].equals("O")) {
             board[4][2] = "O";
-        } else if (move == 3) {
+
+        } else if (move == 3 && !board[4][4].equals("X") && !board[4][4].equals("O")) {
             board[4][4] = "O";
+
+        } else {
+
+            return randomComputerMoves();
         }
 
+
         return board;
+
+
     }
 
     public boolean boardIsFull() {

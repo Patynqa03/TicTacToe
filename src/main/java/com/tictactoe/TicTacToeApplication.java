@@ -1,11 +1,10 @@
 package com.tictactoe;
 
 
-import com.tictactoe.backend.Board;
-import com.tictactoe.backend.BoardMechanics;
-import com.tictactoe.backend.BoardPresent;
+import com.tictactoe.backend.*;
 
-import java.util.Arrays;
+
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
@@ -16,66 +15,39 @@ public class TicTacToeApplication {
 		Board boardObject = new Board();
 		String[][] board = boardObject.getBoard();
 
-		BoardPresent boardPresent = new BoardPresent();
-		String[][] boardPrev = boardPresent.getBoard();
-
-
 		BoardMechanics boardMechanics = new BoardMechanics(board);
 
-		boardMechanics.showBoard(boardPrev);
-		System.out.println();
-		System.out.println("Gracze stawiają na przemian kółko i krzyżyk dążąc do zajęcia trzech pól w jednej linii.");
-		System.out.println("Wygrywa ten z graczy, któremu jako pierwszemu uda ułożyć się trzy znaki w jednej linii.");
-		System.out.println("Ruchy wykonywane są na podstawie planszy umieszczonej powyzej");
-		System.out.println();
-		System.out.println("Wybierz proszę czy chcesz grać z kimś (1) lub  z komputerem (2) ");
+		BoardSout boardSout = new BoardSout();
+		boardSout.boardPrev();
+		boardSout.beforeGame();
 		Scanner nextMoveScanner = new Scanner(System.in);
-		int gameMode = nextMoveScanner.nextInt();
+
+		boolean gameModeValid = false;
+		int gameMode = 0;
+		while (!gameModeValid) {
+			try {
+				gameMode = nextMoveScanner.nextInt();
+				if (gameMode == 1 || gameMode == 2) {
+					gameModeValid = true;
+				} else {
+					System.out.println("Wybierz właściwy tryb");
+				}
+			} catch (InputMismatchException e) {
+				System.out.println("Wybierz właściwy tryb");
+				nextMoveScanner.next();
+			}
+		}
+
 		if(gameMode == 1) {
 
-			boolean gameStatus = false;
-
-			System.out.println("Zaczyna X");
-
-			while (true) {
-
-				boardMechanics.showBoard(board);
-				boardMechanics.xMove(boardMechanics.getNextMove());
-				boardMechanics.showBoard(board);
-
-				gameStatus = boardMechanics.winnerCheck(board);
-				if (boardMechanics.boardIsFull()) {
-					System.out.println("Remis");
-					break;
-
-
-				}
-				if (gameStatus) {
-					System.out.println("WYGRANA!!!");
-					break;
-
-				}
-				boardMechanics.oMove(boardMechanics.getNextMove());
-
-
-				gameStatus = boardMechanics.winnerCheck(board);
-				if (boardMechanics.boardIsFull()) {
-					System.out.println("Remis");
-					break;
-
-
-				}
-				if (gameStatus) {
-					System.out.println("WYGRANA!!!");
-					break;
-
-				}
-
-			}
+			GameWithHuman gameWithHuman = new GameWithHuman();
+			gameWithHuman.game();
 
 		}else if (gameMode == 2) {
 
-			System.out.println("Soon");
+
+			GameWithPC gameWithPC = new GameWithPC();
+			gameWithPC.game();
 
 		}
 
