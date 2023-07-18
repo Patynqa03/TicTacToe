@@ -1,26 +1,22 @@
 package com.tictactoe.backend;
 
-import java.util.Arrays;
-
 public class Board {
+    public String[][] generateBoard(int size) {
+        int numb = size * 2 - 1;
 
-    String[][] board = {
-            {" ","|"," ","|"," "}
-            ,{"-+-+-"}
-            ,{" ","|"," ","|"," "}
-            ,{"-+-+-"}
-            ,{" ","|"," ","|"," "}
-    };
+        String[][] board = new String[numb][numb];
 
-
-    public String[][] getBoard() {
+        for (int i = 0; i < numb; i++) {
+            for (int j = 0; j < numb; j++) {
+                if (i % 2 == 0 && j % 2 == 0) {
+                    board[i][j] = " ";
+                } else if (i % 2 == 0) {
+                    board[i][j] = "|";
+                } else {
+                    board[i][j] = "-";
+                }
+            }
+        }
         return board;
-    }
-
-    @Override
-    public String toString() {
-        return "Board{" +
-                "board=" + Arrays.toString(board) +
-                '}';
     }
 }

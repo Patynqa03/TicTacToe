@@ -1,21 +1,12 @@
 package com.tictactoe;
 
-
 import com.tictactoe.backend.*;
-
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
 public class TicTacToeApplication {
-
 	public static void main(String[] args) {
-
-		Board boardObject = new Board();
-		String[][] board = boardObject.getBoard();
-
-		BoardMechanics boardMechanics = new BoardMechanics(board);
 
 		BoardSout boardSout = new BoardSout();
 		boardSout.boardPrev();
@@ -39,17 +30,12 @@ public class TicTacToeApplication {
 		}
 
 		if(gameMode == 1) {
-
 			GameWithHuman gameWithHuman = new GameWithHuman();
 			gameWithHuman.game();
 
 		}else if (gameMode == 2) {
-
-
 			GameWithPC gameWithPC = new GameWithPC();
 			gameWithPC.game();
-
 		}
-
 	}
 }

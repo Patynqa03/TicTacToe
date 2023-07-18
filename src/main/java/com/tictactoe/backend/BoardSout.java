@@ -1,12 +1,7 @@
 package com.tictactoe.backend;
 
-import java.util.Arrays;
 
 public class BoardSout {
-
-
-
-
 
     public void boardPrev() {
 
@@ -17,8 +12,6 @@ public class BoardSout {
         System.out.println("1|2|3");
 
     }
-
-
     public void beforeGame() {
 
         System.out.println();

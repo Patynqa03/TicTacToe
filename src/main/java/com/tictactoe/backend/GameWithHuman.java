@@ -4,7 +4,7 @@ public class GameWithHuman {
 
 
     private Board boardObject = new Board();
-    private String[][] board = boardObject.getBoard();
+    private String[][] board = boardObject.generateBoard(3);
     private BoardMechanics boardMechanics = new BoardMechanics(board);
 
 
@@ -18,40 +18,30 @@ public class GameWithHuman {
 
             boardMechanics.showBoard(board);
             System.out.println("Ruch X");
-            boardMechanics.xMove(boardMechanics.getNextMove());
+            boardMechanics.Move(boardMechanics.getNextMove(),'X');
             boardMechanics.showBoard(board);
 
             gameStatus = boardMechanics.winnerCheck(board);
-            if (boardMechanics.boardIsFull()) {
-                System.out.println("Remis");
-                break;
 
-
-            }
             if (gameStatus) {
                 System.out.println("WYGRANA X !!!");
                 break;
-
             }
             System.out.println("Ruch O");
-            boardMechanics.oMove(boardMechanics.getNextMove());
-
+            boardMechanics.Move(boardMechanics.getNextMove(),'O');
 
             gameStatus = boardMechanics.winnerCheck(board);
-            if (boardMechanics.boardIsFull()) {
-                System.out.println("Remis");
-                break;
 
-
-            }
             if (gameStatus) {
                 boardMechanics.showBoard(board);
                 System.out.println("WYGRANA O !!!");
                 break;
-
             }
 
-
+            if (boardMechanics.boardIsFull()) {
+                System.out.println("Remis");
+                break;
+            }
         }
     }
 }
