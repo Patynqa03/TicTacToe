@@ -1,28 +1,29 @@
 package com.tictactoe.javafx;
-
-import com.tictactoe.backend.BoardMechanics;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+
+import java.util.Random;
 
 public class JavaFx extends Application {
 
     private Scene scene1;
     private Scene scene2;
 
+
     private Button[][] buttons = new Button[3][3];
 
     private boolean isXNext = true;
+    private boolean isComputerGame = false;
     private Label chooseGame;
-    private Label statusLabel;
+
 
     public static void main(String[] args) {
         launch(args);
@@ -45,7 +46,8 @@ public class JavaFx extends Application {
         });
 
         button2.setOnAction(event -> {
-            primaryStage.setScene(scene1);
+            isComputerGame = true;
+            primaryStage.setScene(scene2);
         });
 
         chooseGame = new Label("Wybierz tryb gry");
@@ -77,16 +79,11 @@ public class JavaFx extends Application {
                 buttons[i][j] = button;
             }
         }
-
         gridPane.setAlignment(Pos.CENTER);
         gridPane.setHgap(10);
         gridPane.setVgap(10);
-
         scene2 = new Scene(gridPane, 500, 500, Color.BLACK);
-
     }
-
-
     private void makeMove(Button button) {
         if (button.getText().isEmpty()) {
             if (isXNext) {
@@ -96,9 +93,12 @@ public class JavaFx extends Application {
             }
             isXNext = !isXNext;
             winnerCheck();
+
+            if (isComputerGame && !isXNext) {
+                makeComputerMove();
+            }
         }
     }
-
     private void winnerCheck() {
         String[][] board = new String[3][3];
         for (int row = 0; row < 3; row++) {
@@ -146,7 +146,7 @@ public class JavaFx extends Application {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Kolko i krzyzyk");
         alert.setHeaderText(null);
-        alert.setContentText("Wygral: " + winner);
+        alert.setContentText("WYGRYWA: " + winner);
         alert.showAndWait();
         resetGame();
     }
@@ -155,7 +155,7 @@ public class JavaFx extends Application {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Kolko i krzyzyk");
         alert.setHeaderText(null);
-        alert.setContentText("Remis!");
+        alert.setContentText("REMIS!");
         alert.showAndWait();
         resetGame();
     }
@@ -168,6 +168,22 @@ public class JavaFx extends Application {
             }
         }
     }
+    private void makeComputerMove() {
 
+        Random random = new Random();
+        int row, col;
+        boolean isEmpty = false;
 
+        while (!isEmpty) {
+            row = random.nextInt(3);
+            col = random.nextInt(3);
+
+            if (buttons[row][col].getText().isEmpty()) {
+                buttons[row][col].setText("O");
+                isEmpty = true;
+            }
+        }
+        isXNext = true;
+        winnerCheck();
+    }
 }
